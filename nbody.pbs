@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Basics of the job we want
+#PBS -lnodes=2:ppn=2
+#PBS -lwalltime=00:03:00
+#PBS -q Core2
+
+## Specify the shell to be bash
+#PBS -S /bin/bash
+
+cd $PBS_O_WORKDIR
+. /etc/profile.d/modules.sh
+module load openmpi/1.6.3/gcc/4.8.2
+
+mpirun -np 4 -machinefile $PBS_NODEFILE ./nbody 8000
